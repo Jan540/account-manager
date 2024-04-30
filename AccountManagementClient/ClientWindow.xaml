@@ -1,0 +1,64 @@
+﻿<Window x:Class="AccountManagementClient.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AccountManagementClient"
+        xmlns:lib="clr-namespace:AccountManagementLibrary;assembly=AccountManagementLibrary"
+        mc:Ignorable="d"
+        Title="Account Management Client" Height="450" Width="800" FontSize="14">
+    <Window.Resources>
+        <Style TargetType="TextBox">
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="Padding" Value="5,3" />
+        </Style>
+        <Style TargetType="PasswordBox">
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="Padding" Value="5,3" />
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="Padding" Value="15,3" />
+        </Style>
+    </Window.Resources>
+    <DockPanel Margin="10">
+        <DockPanel DockPanel.Dock="Top" LastChildFill="False" Margin="0,0,0,10">
+            <Label Content="Login: " Margin="0,0,5,0" />
+            <TextBox x:Name="tbLogin" Text="t_stan" MinWidth="150" />
+            <Label Content="Password: " Margin="20,0,5,0"/>
+            <PasswordBox x:Name="tbPassword" Password="t_stan" MinWidth="150" />
+            <Button x:Name="btnLogin" Content="Login" Margin="20,0,0,0" Click="btnLogin_Click" />
+            <Button x:Name="btnLogout" Content="Logout" Margin="10,0,0,0" Click="btnLogout_Click" />
+        </DockPanel>
+        <TextBlock x:Name="tbStatus" DockPanel.Dock="Bottom" Margin="5,10,0,0" FontStyle="Italic"/>
+        <ListBox x:Name="lbUsers" DockPanel.Dock="Right" MinWidth="200" Margin="10,0,0,0"/>
+        <StackPanel DockPanel.Dock="Right" VerticalAlignment="Center" Margin="10,0,0,0">
+            <Button x:Name="btnAdd" Content="&lt;" Margin="0,0,0,10" Click="btnAdd_Click"/>
+            <Button x:Name="btnRemove" Content="&gt;" Margin="0,10,0,0" Click="btnRemove_Click" />
+        </StackPanel>
+        <DockPanel>
+            <StackPanel DockPanel.Dock="Bottom" HorizontalAlignment="Right" Orientation="Horizontal" Margin="0,10,0,0">
+                <Label Content="New group name: " />
+                <TextBox x:Name="tbNewGroup" Text="SpecialGroup" MinWidth="200"/>
+                <Button x:Name="btnAddGroup" Content="+" Margin="10,0,0,0" Click="btnAddGroup_Click"/>
+            </StackPanel>
+            <TreeView x:Name="tvGroups" TreeViewItem.Selected="tvGroups_SelectedItemChanged">
+            <TreeView.Resources>
+                <HierarchicalDataTemplate DataType="{x:Type lib:Group}" ItemsSource="{Binding Users}">
+                    <TextBlock Text="{Binding Name}" Margin="0,5,0,0"/>
+                </HierarchicalDataTemplate>
+                <DataTemplate DataType="{x:Type lib:User}">
+                    <TextBlock>
+                        <TextBlock.Text>
+                            <MultiBinding StringFormat="{}{0} {1}">
+                                <Binding Path="Firstname" />
+                                <Binding Path="Lastname" />
+                            </MultiBinding>
+                        </TextBlock.Text>    
+                    </TextBlock>
+                </DataTemplate>
+            </TreeView.Resources>
+        </TreeView>
+        </DockPanel>
+    </DockPanel>
+</Window>
