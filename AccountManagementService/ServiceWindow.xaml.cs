@@ -292,7 +292,6 @@ namespace AccountManagementService
 
         protected override void OnClosing(CancelEventArgs e)
         {
-            udpListener.Client.Close();
             udpListener.Close();
             base.OnClosing(e);
         }
