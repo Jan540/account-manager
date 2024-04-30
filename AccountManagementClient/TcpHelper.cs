@@ -132,7 +132,7 @@ namespace AccountManagementClient
 
         internal static async Task<T> GetResponse<T>(NetworkStream stream)
         {
-            using StreamReader sr = new StreamReader(stream);
+            using StreamReader sr = new(stream);
             var responseString = await sr.ReadToEndAsync();
 
             try
